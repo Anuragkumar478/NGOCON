@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
-const ngos = [
+  const ngos = [
     {
       name: "Helping Hands Foundation",
       category: "Child Welfare",
@@ -68,24 +68,99 @@ const ngos = [
     <div className="font-sans text-gray-800">
 
       {/* Navbar */}
-      <header className="bg-white shadow-md sticky top-0 z-50">
-        <div className="container mx-auto flex justify-between items-center p-4">
-          <div className="flex items-center space-x-2">
-            <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xl animate-pulse">
-              CS
-            </div>
-            <span className="text-2xl font-bold text-teal-600">CharitySphere</span>
+    <header className="bg-white shadow-md sticky top-0 z-50">
+  <div className="container mx-auto flex justify-between items-center p-4">
+    {/* Logo Section */}
+    <div className="flex items-center space-x-2 cursor-pointer">
+      <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xl animate-pulse">
+        CS
+      </div>
+      <span className="text-2xl font-bold text-teal-600">CharitySphere</span>
+    </div>
+
+    {/* Navbar Links */}
+    <nav className="space-x-6 font-medium text-lg flex items-center relative">
+      <a href="#home" className="hover:text-teal-600 transition">
+        Home
+      </a>
+
+      <Link to="/ngos" className="hover:text-teal-600 transition">
+        NGOs
+      </Link>
+
+      {/* Conditional Rendering: Login OR Profile */}
+      {localStorage.getItem("loggedInUser") ? (
+  (() => {
+    const [menuOpen, setMenuOpen] = React.useState(false);
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    return (
+      <div className="relative inline-block">
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="flex items-center gap-2 bg-transparent focus:outline-none"
+        >
+          {/* Circle Avatar */}
+          <div className="w-10 h-10 bg-gradient-to-r from-teal-500 to-orange-400 text-white rounded-full flex items-center justify-center font-bold uppercase shadow">
+            {user.name?.charAt(0)?.toUpperCase()}
           </div>
-          <nav className="space-x-6 font-medium text-lg">
-            <a href="#home" className="hover:text-teal-600 transition">Home</a>
-            <a href="#ngos" className="hover:text-teal-600 transition">NGOs</a>
-            <Link to="/login" className="bg-teal-600 text-white px-4 py-2 rounded-lg shadow hover:bg-orange-500 transition">Login</Link>
-          </nav>
-        </div>
-      </header>
+          <svg
+            className="w-4 h-4 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </button>
+
+        {/* Dropdown Menu (toggle visible when clicked) */}
+        {menuOpen && (
+          <div className="absolute right-0 mt-2 bg-white text-gray-700 rounded-lg shadow-lg w-40">
+            <Link
+              to="/profile"
+              onClick={() => setMenuOpen(false)}
+              className="block px-4 py-2 hover:bg-gray-100"
+            >
+              Profile
+            </Link>
+            <button
+              onClick={() => {
+                localStorage.removeItem("loggedInUser");
+                setMenuOpen(false);
+                window.location.reload();
+              }}
+              className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+            >
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  })()
+) : (
+  <Link
+    to="/login"
+    className="bg-teal-600 text-white px-4 py-2 rounded-lg shadow hover:bg-orange-500 transition"
+  >
+    Login
+  </Link>
+)}
+
+    </nav>
+  </div>
+</header>
+
 
       {/* Hero Section */}
-      <section id="home" className="relative bg-gradient-to-r from-teal-500 to-orange-400 text-white py-24 md:py-32">
+      <section id="home" className="relative bg-gradient-to-r from-teal-500 to-orange-200 text-white py-24 md:py-32">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-16">
           {/* Left side text */}
           <div className="md:w-1/2 space-y-6 text-center md:text-left">
