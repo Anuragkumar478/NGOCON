@@ -108,9 +108,9 @@ const ngos = [
           {/* Right side image */}
           <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center relative">
             <img
-              src="https://img.freepik.com/free-vector/flat-design-illustration-people-helping-each-other_23-2149371226.jpg"
+              src="hackhub.jpg"
               alt="People helping each other through donations"
-              className="w-96 md:w-[480px] drop-shadow-2xl rounded-3xl animate-fade-in"
+              className="w-96 md:w-[500px] drop-shadow-2xl rounded-3xl animate-fade-in"
             />
             <div className="absolute -z-10 w-96 h-96 bg-white/10 rounded-full blur-3xl top-1/2 -translate-y-1/2 right-0"></div>
           </div>
