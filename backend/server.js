@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import ngoRoutes from "./routes/ngoRoutes.js";
+import donorRoutes from "./routes/donorRoutes.js";
+
 
 dotenv.config();
 connectDB();
@@ -13,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/ngos", ngoRoutes);
+app.use("/api/donors", donorRoutes);
 
 app.get("/", (req, res) => {
   res.send("NGO Platform Backend is Running");

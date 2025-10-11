@@ -17,5 +17,14 @@ export const getAllNGOs = async () => {
   const res = await api.get("/ngos");
   return res.data;
 };
+export const loginDonor = async (donorData) => {
+  const response = await axios.post(`${API_URL}/donors/login`, donorData);
+  return response.data;
+};
+
+export const getAllDonors = async () => {
+  const response = await axios.get(`${API_URL}/donors`);
+  return response.data;
+};
 
 export default api;
