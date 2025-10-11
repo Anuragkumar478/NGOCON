@@ -1,0 +1,40 @@
+# Node modules (never push this)
+node_modules/
+
+# Environment variables (keep secrets safe)
+.env
+backend/.env
+frontend/.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Build files
+dist/
+build/
+
+# Cache and temporary files
+.cache/
+.tmp/
+
+# Dependency lock files (optional)
+package-lock.json
+yarn.lock
+
+# Frontend specific
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# Backend specific
+backend/node_modules/
+backend/dist/
+backend/build/
