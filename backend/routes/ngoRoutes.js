@@ -6,6 +6,7 @@ import {
   addFeedback,
   getNGOsByCategory,
 } from "../controllers/ngoController.js";
+import { loginNGO } from "../controllers/ngoController.js";
 import { upload } from "../middleware/uploads.js"; // Multer middleware
 
 const router = express.Router();
@@ -32,4 +33,5 @@ router.post("/:id/feedback", addFeedback);
 // ✅ Get NGOs by category
 router.get("/category/:category", getNGOsByCategory);
 
+router.post("/login", loginNGO);
 export default router;

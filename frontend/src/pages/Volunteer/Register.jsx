@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { loginDonor } from "../../services/api";
+import { registerVolunteer } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+const RegisterVolunteer = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -16,18 +20,12 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await loginDonor(formData);
-      alert("Login successful!");
-      console.log(response);
-
-      // Save token in localStorage
-      localStorage.setItem("donorToken", response.token);
-      localStorage.setItem("donorInfo", JSON.stringify(response.donor));
-
-      navigate("/"); // redirect after login
+      const response = await registerVolunteer(formData);
+      alert("Volunteer registered successfully!");
+      navigate("/volunteer/login");
     } catch (error) {
       console.error(error);
-      alert(error.response?.data?.message || "Login failed");
+      alert(error.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -35,8 +33,17 @@ const Login = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-6">
-      <h2 className="text-2xl font-bold mb-4">Donor Login</h2>
+      <h2 className="text-2xl font-bold mb-4">Register as Volunteer</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          value={formData.name}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        />
         <input
           type="email"
           name="email"
@@ -57,14 +64,14 @@ const Login = () => {
         />
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
           disabled={loading}
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading ? "Registering..." : "Register"}
         </button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default RegisterVolunteer;

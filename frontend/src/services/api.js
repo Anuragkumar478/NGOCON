@@ -4,10 +4,19 @@ const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api"
 
 const api = axios.create({
   baseURL: API_URL,
-  headers: { "Content-Type": "application/json" },
 });
 
-// ✅ NGO APIs
+// 🔹 Automatically handle FormData uploads
+api.interceptors.request.use((config) => {
+  if (config.data instanceof FormData) {
+    config.headers["Content-Type"] = "multipart/form-data";
+  } else {
+    config.headers["Content-Type"] = "application/json";
+  }
+  return config;
+});
+
+/* ===================== NGO APIs ===================== */
 export const registerNGO = async (ngoData) => {
   const res = await api.post("/ngos/register", ngoData);
   return res.data;
@@ -33,7 +42,18 @@ export const addFeedback = async (id, feedback) => {
   return res.data;
 };
 
-// ✅ Donor APIs (if you have donors)
+export const loginNGO = async (ngoData) => {
+  const res = await api.post("/ngos/login", ngoData);
+  return res.data;
+};
+
+
+/* ===================== Donor APIs ===================== */
+export const registerDonor = async (donorData) => {
+  const res = await api.post("/donors/register", donorData);
+  return res.data;
+};
+
 export const loginDonor = async (donorData) => {
   const res = await api.post("/donors/login", donorData);
   return res.data;
@@ -41,6 +61,48 @@ export const loginDonor = async (donorData) => {
 
 export const getAllDonors = async () => {
   const res = await api.get("/donors");
+  return res.data;
+};
+
+/* ===================== Volunteer APIs ===================== */
+export const registerVolunteer = async (volunteerData) => {
+  const res = await api.post("/volunteers/register", volunteerData);
+  return res.data;
+};
+
+export const loginVolunteer = async (volunteerData) => {
+  const res = await api.post("/volunteers/login", volunteerData);
+  return res.data;
+};
+
+export const getAllVolunteers = async () => {
+  const res = await api.get("/volunteers");
+  return res.data;
+};
+
+/* ===================== Campaign APIs ===================== */
+export const createCampaign = async (campaignData) => {
+  const res = await api.post("/campaigns", campaignData);
+  return res.data;
+};
+
+export const getAllCampaigns = async () => {
+  const res = await api.get("/campaigns");
+  return res.data;
+};
+
+export const getCampaignDetails = async (id) => {
+  const res = await api.get(`/campaigns/${id}`);
+  return res.data;
+};
+
+export const registerVolunteerToCampaign = async (campaignId, volunteerId) => {
+  const res = await api.post(`/campaigns/${campaignId}/volunteer`, { volunteerId });
+  return res.data;
+};
+
+export const addDonationToCampaign = async (campaignId, donation) => {
+  const res = await api.post(`/campaigns/${campaignId}/donate`, donation);
   return res.data;
 };
 

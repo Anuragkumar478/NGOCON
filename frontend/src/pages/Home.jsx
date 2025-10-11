@@ -79,11 +79,15 @@ const Home = () => {
             key={ngo._id}
             className="bg-white rounded-lg shadow-md hover:shadow-lg transition"
           >
-            <img
-              src={ngo.image || "https://via.placeholder.com/250"}
-              alt={ngo.name}
-              className="w-full h-48 object-cover rounded-t-lg"
-            />
+           <img
+  src={
+    ngo.profileImage
+      ? `http://localhost:5000/${ngo.profileImage}`
+      : "https://via.placeholder.com/250"
+  }
+  alt={ngo.name}
+/>
+
             <div className="p-4">
               <h2 className="text-xl font-bold">{ngo.name}</h2>
               <p className="text-gray-600 mt-1">{ngo.description}</p>
@@ -103,6 +107,12 @@ const Home = () => {
                 >
                   View Details
                 </button>
+                <button
+    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+    onClick={() => handleDonate(ngo._id)}
+  >
+    Donate
+  </button>
               </div>
             </div>
           </div>
@@ -127,6 +137,14 @@ const Home = () => {
             <p className="text-yellow-600 font-medium mb-2">
               ⭐ {selectedNgo.averageRating?.toFixed(1) || "0"} / 5
             </p>
+             <div className="mb-4">
+              <button
+                onClick={() => handleDonate(selectedNgo._id)}
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+              >
+                Donate to {selectedNgo.name}
+              </button>
+            </div>
 
             {/* 🧾 Feedbacks */}
             <h3 className="font-semibold text-lg mt-4">Feedbacks</h3>

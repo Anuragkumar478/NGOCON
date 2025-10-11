@@ -1,38 +1,73 @@
-import { useState, useContext } from "react";
+import React, { useState } from "react";
 import { registerDonor } from "../../services/api";
-import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
-  const [error, setError] = useState("");
-  const { setUser } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await registerDonor(form);
-      setUser(data);
-      navigate("/donor/dashboard");
-    } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+      setLoading(true);
+      const response = await registerDonor(formData);
+      alert("Donor registered successfully!");
+      console.log(response);
+      setFormData({ name: "", email: "", password: "" });
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || "Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
-      <h2 className="text-2xl font-bold mb-4">Donor Register</h2>
-      {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <input name="name" placeholder="Name" value={form.name} onChange={handleChange} className="border p-2"/>
-        <input name="email" placeholder="Email" value={form.email} onChange={handleChange} className="border p-2"/>
-        <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleChange} className="border p-2"/>
-        <button type="submit" className="bg-blue-500 text-white p-2">Register</button>
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-6">
+      <h2 className="text-2xl font-bold mb-4">Register as Donor</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          value={formData.name}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        />
+        <button
+          type="submit"
+          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+          disabled={loading}
+        >
+          {loading ? "Registering..." : "Register"}
+        </button>
       </form>
     </div>
   );

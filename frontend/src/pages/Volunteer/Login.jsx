@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { loginDonor } from "../../services/api";
+import { loginVolunteer } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+const LoginVolunteer = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -16,15 +19,10 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await loginDonor(formData);
+      const response = await loginVolunteer(formData);
+      localStorage.setItem("volunteerToken", response.token);
       alert("Login successful!");
-      console.log(response);
-
-      // Save token in localStorage
-      localStorage.setItem("donorToken", response.token);
-      localStorage.setItem("donorInfo", JSON.stringify(response.donor));
-
-      navigate("/"); // redirect after login
+      navigate("/"); // redirect to home or volunteer dashboard
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || "Login failed");
@@ -35,7 +33,7 @@ const Login = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-6">
-      <h2 className="text-2xl font-bold mb-4">Donor Login</h2>
+      <h2 className="text-2xl font-bold mb-4">Volunteer Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="email"
@@ -57,7 +55,7 @@ const Login = () => {
         />
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
           disabled={loading}
         >
           {loading ? "Logging in..." : "Login"}
@@ -67,4 +65,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginVolunteer;

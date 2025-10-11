@@ -108,3 +108,22 @@ export const getNGOsByCategory = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const loginNGO = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const ngo = await NGO.findOne({ email });
+    if (!ngo) return res.status(404).json({ message: "NGO not found" });
+
+    const isMatch = await bcrypt.compare(password, ngo.password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid password" });
+
+    const token = jwt.sign({ id: ngo._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    res.json({ message: "Login successful", ngo, token });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
