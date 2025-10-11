@@ -12,7 +12,7 @@ const Register = () => {
 
         <div className="flex flex-col space-y-5">
           <button
-            onClick={() => navigate("/register/ngo")}
+            onClick={() => navigate("//register-ngo")}
             className="bg-gradient-to-r from-teal-500 to-orange-400 text-white font-semibold py-3 rounded-lg shadow-lg hover:opacity-90 transition"
           >
             🏢 Register as NGO

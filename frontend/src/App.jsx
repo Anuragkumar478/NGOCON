@@ -12,6 +12,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/register-ngo" element={<NGORegister />} />
+        <Route path="/ngos" element={<NGOList />} />
+
       </Routes>
     
   );
