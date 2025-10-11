@@ -2,11 +2,35 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const ngos = [
-    { name: "Helping Hands Foundation", img: "https://via.placeholder.com/300x200?text=Helping+Hands" },
-    { name: "Green Earth Trust", img: "https://via.placeholder.com/300x200?text=Green+Earth" },
-    { name: "Smile Foundation", img: "https://via.placeholder.com/300x200?text=Smile+Foundation" },
-    { name: "Education for All", img: "https://via.placeholder.com/300x200?text=Education+for+All" },
+const ngos = [
+    {
+      name: "Helping Hands Foundation",
+      category: "Child Welfare",
+      aim: "Providing education and meals to underprivileged children.",
+      amount: "₹5,00,000",
+      help: "Help us bring education and hope to every child.",
+    },
+    {
+      name: "Green Earth Trust",
+      category: "Environment",
+      aim: "Planting 10,000 trees to combat climate change.",
+      amount: "₹3,00,000",
+      help: "Join hands to make our planet greener and cleaner.",
+    },
+    {
+      name: "Smile Foundation",
+      category: "Healthcare",
+      aim: "Supporting free medical checkups in rural areas.",
+      amount: "₹7,50,000",
+      help: "Your contribution can save lives and spread smiles.",
+    },
+    {
+      name: "Education for All",
+      category: "Education",
+      aim: "Building libraries for students in villages.",
+      amount: "₹4,00,000",
+      help: "Empower rural students with the gift of knowledge.",
+    },
   ];
 
   const testimonials = [
@@ -93,6 +117,7 @@ const HomePage = () => {
         </div>
       </section>
 
+
       {/* Featured NGOs */}
       <section id="ngos" className="py-24 bg-gray-50">
         <h2 className="text-4xl font-bold text-center mb-16 text-teal-700">Featured NGOs</h2>
@@ -101,13 +126,27 @@ const HomePage = () => {
           {ngos.map((ngo, index) => (
             <div
               key={index}
-              className="flex flex-col justify-between bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 hover:shadow-2xl"
+              className="bg-white rounded-3xl shadow-xl overflow-hidden p-6 flex flex-col justify-between hover:shadow-2xl transform hover:scale-105 transition duration-300"
             >
-              <img src={ngo.img} alt={ngo.name} className="w-full h-56 object-cover" />
-              <div className="flex flex-col justify-between flex-grow p-6 text-center">
-                <h3 className="font-semibold text-xl mb-4">{ngo.name}</h3>
-                <button className="mt-auto bg-gradient-to-r from-teal-500 to-orange-400 text-white px-6 py-2 rounded-full shadow-lg hover:from-orange-500 hover:to-teal-500 transition transform hover:scale-105">
+              <h3 className="text-2xl font-bold text-teal-700 mb-4">{ngo.name}</h3>
+              <div className="text-left space-y-2 text-gray-700">
+                <p>
+                  <strong>🏷 Category:</strong> {ngo.category}
+                </p>
+                <p>
+                  <strong>🎯 Aim:</strong> {ngo.aim}
+                </p>
+                <p>
+                  <strong>💰 Amount Needed:</strong> {ngo.amount}
+                </p>
+                <p className="text-teal-600 italic mt-2">{ngo.help}</p>
+              </div>
+              <div className="flex flex-col gap-3 mt-6">
+                <button className="bg-gradient-to-r from-teal-500 to-orange-400 text-white px-6 py-2 rounded-full shadow-lg hover:from-orange-500 hover:to-teal-500 transition transform hover:scale-105">
                   Donate Now
+                </button>
+                <button className="bg-gray-100 text-teal-600 border border-teal-400 px-6 py-2 rounded-full hover:bg-teal-50 transition">
+                  About Us
                 </button>
               </div>
             </div>
@@ -129,7 +168,6 @@ const HomePage = () => {
           </Link>
         </div>
       </section>
-
       {/* How It Works */}
       <section className="py-24 bg-white">
         <h2 className="text-4xl font-bold text-center mb-16 text-teal-700">How It Works</h2>
