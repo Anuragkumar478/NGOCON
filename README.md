@@ -1,88 +1,14 @@
- 
-NGOCON/                       <-- Root folder
-│
-├── .gitignore                 <-- Ignore node_modules, .env, logs
-├── README.md                  <-- Project description
-│
-├── backend/                   <-- Node.js + Express backend
-│   ├── config/
-│   │   └── db.js              <-- MongoDB connection
-│   │
-│   ├── controllers/           <-- Functions for routes
-│   │   ├── ngoController.js
-│   │   ├── donorController.js
-│   │   └── volunteerController.js
-│   │
-│   ├── middleware/            <-- Middleware (auth, error handling)
-│   │   └── authMiddleware.js
-│   │
-│   ├── models/                <-- Mongoose models
-│   │   ├── NGO.js
-│   │   ├── Donor.js
-│   │   ├── Volunteer.js
-│   │   └── Campaign.js
-│   │
-│   ├── routes/                <-- API routes
-│   │   ├── ngoRoutes.js
-│   │   ├── donorRoutes.js
-│   │   └── volunteerRoutes.js
-│   │
-│   ├── utils/                 <-- Helper files (emails, validation)
-│   │   └── emailService.js
-│   │
-│   ├── .env                   <-- Environment variables (DB URI, JWT_SECRET)
-│   ├── package.json
-│   └── server.js              <-- Entry point for backend
-│
-frontend/
-├── public/
-│   ├── index.html           # Main HTML file
-│   ├── favicon.ico
-│   └── images/              # Logo, placeholder images
-│
-├── src/
-│   ├── assets/              # Images, icons, SVGs
-│   │   └── logo.png
-│   │
-│   ├── components/          # Reusable UI components
-│   │   ├── Navbar.jsx
-│   │   ├── Footer.jsx
-│   │   ├── Card.jsx         # Campaign cards
-│   │   ├── Button.jsx
-│   │   └── Modal.jsx
-│   │
-│   ├── pages/               # Pages for routes
-│   │   ├── Home.jsx         # Landing page
-│   │   ├── NGO/
-│   │   │   ├── NGODashboard.jsx
-│   │   │   ├── CreateCampaign.jsx
-│   │   │   └── NGOProfile.jsx
-│   │   ├── Donor/
-│   │   │   ├── DonorDashboard.jsx
-│   │   │   ├── Donate.jsx
-│   │   │   └── DonorProfile.jsx
-│   │   ├── Volunteer/
-│   │   │   ├── VolunteerDashboard.jsx
-│   │   │   ├── RegisterActivity.jsx
-│   │   │   └── VolunteerProfile.jsx
-│   │   └── Auth/
-│   │       ├── Login.jsx
-│   │       └── Register.jsx
-│   │
-│   ├── services/           # API calls
-│   │   └── api.js
-│   │
-│   ├── context/            # React context for global state (auth, user info)
-│   │   └── AuthContext.jsx
-│   │
-│   ├── hooks/              # Custom React hooks
-│   │   └── useFetch.js
-│   │
-│   ├── App.jsx             # Main App with routes
-│   ├── main.jsx            # Entry point
-│   └── index.css           # Global styles (Tailwind / CSS)
-│
-├── .env                    # API base URL
-├── package.json
-└── vite.config.js
-
+1. Problem Statement 
+Many NGOs face challenges in connec ng with poten al donors and volunteers due to 
+limited visibility and lack of trust. Donors o en hesitate to contribute because they cannot 
+verify how their funds are used, and volunteers struggle to find nearby opportuni es to 
+contribute. There is a need for a transparent and collabora ve digital pla orm that bridges 
+NGOs, donors, and volunteers to ensure accountability and effec ve resource u liza on in 
+social impact ac vi es. 
+ Expected Output 
+1. A web-based pla orm where: 
+2. NGOs can post verified dona on or volunteer campaigns. 
+3. Donors can contribute and view u liza on reports or updates. 
+4. Volunteers can discover and register for local ac vi es. 
+5. The system ensures transparency through progress tracking and data visualiza on of 
+social impact. 
