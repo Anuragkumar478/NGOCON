@@ -5,13 +5,13 @@ import {
   getNGODetails,
   addFeedback,
   getNGOsByCategory,
+  loginNGO
 } from "../controllers/ngoController.js";
-import { loginNGO } from "../controllers/ngoController.js";
-import { upload } from "../middleware/uploads.js"; // Multer middleware
+import { upload } from "../middleware/uploads.js";
+import { protectNGO } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// ✅ Register NGO with file uploads
 router.post(
   "/register",
   upload.fields([
@@ -21,17 +21,15 @@ router.post(
   registerNGO
 );
 
-// ✅ Get all NGOs
-router.get("/", getAllNGOs);
+router.post("/login", loginNGO);
 
-// ✅ Get single NGO details
+// ✅ Route order fixed
+router.get("/category/:category", getNGOsByCategory);
 router.get("/:id", getNGODetails);
 
-// ✅ Add feedback
-router.post("/:id/feedback", addFeedback);
+// ✅ Protect feedback route
+router.post("/:id/feedback", protectNGO, addFeedback);
 
-// ✅ Get NGOs by category
-router.get("/category/:category", getNGOsByCategory);
+router.get("/", getAllNGOs);
 
-router.post("/login", loginNGO);
 export default router;

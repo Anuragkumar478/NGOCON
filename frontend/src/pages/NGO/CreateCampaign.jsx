@@ -1,27 +1,33 @@
 import { useState } from "react";
-import { createCampaign } from "../../services/api";
+import { createCampaign } from "../../services/api"; // your API function
 
 export default function CreateCampaign() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    ngoId: "", // choose the NGO creating the campaign
+    location: "",
   });
   const [loading, setLoading] = useState(false);
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
-      setLoading(true);
-      const res = await createCampaign(formData);
-      alert("Campaign created successfully!");
-      setFormData({ title: "", description: "", ngoId: "" });
+      // No need to manually send token; cookies are sent automatically
+      const response = await createCampaign(formData);
+
+      alert(response.message || "Campaign created successfully!");
+      setFormData({ title: "", description: "", location: "" });
     } catch (err) {
+      console.error(err);
       alert(err.response?.data?.message || "Failed to create campaign");
     } finally {
       setLoading(false);
@@ -51,9 +57,9 @@ export default function CreateCampaign() {
         />
         <input
           type="text"
-          name="ngoId"
-          placeholder="NGO ID"
-          value={formData.ngoId}
+          name="location"
+          placeholder="Location"
+          value={formData.location}
           onChange={handleChange}
           className="w-full border p-2 rounded"
           required

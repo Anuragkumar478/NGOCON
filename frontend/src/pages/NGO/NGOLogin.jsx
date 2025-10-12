@@ -16,11 +16,8 @@ const NGOLogin = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await loginNGO(formData);
-      
-      // Save JWT & NGO info in localStorage
-      localStorage.setItem("ngoToken", res.token);
-      localStorage.setItem("ngoInfo", JSON.stringify(res.ngo));
+      // Send login request, cookie will be set by backend
+      await loginNGO(formData);
 
       alert("Login successful!");
       navigate("/ngo/dashboard"); // redirect to dashboard

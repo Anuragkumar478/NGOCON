@@ -5,27 +5,24 @@ import {
   getCampaignDetails,
   registerVolunteer,
   addDonation,
-  updateCampaignStatus
+  updateCampaignStatus,
+  addCampaignUpdate,
 } from "../controllers/campaignController.js";
+import { protectNGO } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// Create Campaign
-router.post("/", createCampaign);
+// NGO routes (require authentication)
+router.post("/", protectNGO, createCampaign);
+router.patch("/:id/status", protectNGO, updateCampaignStatus);
+router.post("/:id/updates", protectNGO, addCampaignUpdate);
 
-// Get all campaigns
+// Public routes
 router.get("/", getAllCampaigns);
-
-// Get single campaign details
 router.get("/:id", getCampaignDetails);
 
-// Volunteer register
+// Volunteer & Donor actions (can add auth if needed)
 router.post("/:id/register-volunteer", registerVolunteer);
-
-// Donor donate
 router.post("/:id/donate", addDonation);
-
-// Update campaign status
-router.patch("/:id/status", updateCampaignStatus);
 
 export default router;

@@ -4,6 +4,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api"
 
 const api = axios.create({
   baseURL: API_URL,
+  withCredentials: true, // ✅ send cookies automatically with every request
 });
 
 // 🔹 Automatically handle FormData uploads
@@ -43,10 +44,15 @@ export const addFeedback = async (id, feedback) => {
 };
 
 export const loginNGO = async (ngoData) => {
+  // Cookie-based login
   const res = await api.post("/ngos/login", ngoData);
-  return res.data;
+  return res.data; // cookie is automatically stored by browser
 };
 
+export const logoutNGO = async () => {
+  const res = await api.post("/ngos/logout"); // backend clears the cookie
+  return res.data;
+};
 
 /* ===================== Donor APIs ===================== */
 export const registerDonor = async (donorData) => {
@@ -81,15 +87,20 @@ export const getAllVolunteers = async () => {
 };
 
 /* ===================== Campaign APIs ===================== */
-export const createCampaign = async (campaignData) => {
-  const res = await api.post("/campaigns", campaignData);
+
+export const createCampaign = async (data) => {
+  const res = await api.post("/campaigns", data, {
+    withCredentials: true, // <-- important for sending cookies
+  });
   return res.data;
 };
 
-export const getAllCampaigns = async () => {
-  const res = await api.get("/campaigns");
+export const getAllCampaigns = async (location) => {
+  const res = await api.get("/campaigns", {
+    params: location ? { location } : {},
+  });
   return res.data;
-};
+}
 
 export const getCampaignDetails = async (id) => {
   const res = await api.get(`/campaigns/${id}`);

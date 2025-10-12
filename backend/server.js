@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import connectDB from "./config/db.js";
 import ngoRoutes from "./routes/ngoRoutes.js";
@@ -13,8 +14,14 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173", // replace with your frontend URL
+  credentials: true,               // important to allow cookies
+}));
+
 app.use(express.json());
+app.use(cookieParser());
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
