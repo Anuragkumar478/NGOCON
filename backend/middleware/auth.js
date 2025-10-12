@@ -5,6 +5,7 @@ import NGO from "../models/NGO.js";
 export const protectNGO = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
+    console.log("Auth Header:", authHeader);
 if (!authHeader || !authHeader.startsWith("Bearer ")) {
   return res.status(401).json({ message: "Not authorized, token missing" });
 }
