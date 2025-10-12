@@ -9,8 +9,11 @@ import NGOList from './components/NGOList'
 import NGOLogin from './components/NGOLogin'
 import NGODashboard from './components/NGODashboard'
 import Profile from './components/Profile'
+import ContactUs from './components/ContactUs'
+
 
 import TrackDonation from './components/TrackDonation'
+ 
 function App() {
   return (
   
@@ -24,6 +27,7 @@ function App() {
         <Route path="/ngo-dashboard" element={<NGODashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/track-donation" element={<TrackDonation />} />
+        <Route path="/contact" element={<ContactUs />} />
 
       </Routes>
     

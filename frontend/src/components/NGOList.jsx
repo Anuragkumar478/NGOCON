@@ -137,7 +137,7 @@ const NGOList = () => {
                   onClick={() => handleDonateClick(ngo)}
                   className="bg-gradient-to-r from-teal-500 to-orange-400 text-white px-4 py-2 rounded-full hover:from-orange-500 hover:to-teal-500 transition transform hover:scale-105"
                 >
-                  Donate
+                 Donate
                 </button>
                 <button className="bg-teal-100 text-teal-700 px-4 py-2 rounded-full hover:bg-teal-200 transition">
                   Volunteer

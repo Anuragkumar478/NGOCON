@@ -88,6 +88,11 @@ const HomePage = () => {
         NGOs
       </Link>
 
+      <Link to="/contact" className="hover:text-teal-600 transition">
+  Contact Us
+</Link>
+
+
       {/* Conditional Rendering: Login OR Profile */}
       {localStorage.getItem("loggedInUser") ? (
   (() => {
@@ -160,7 +165,7 @@ const HomePage = () => {
 
 
       {/* Hero Section */}
-      <section id="home" className="relative bg-gradient-to-r from-teal-500 to-orange-200 text-white py-24 md:py-32">
+      <section id="home" className="relative bg-gradient-to-r from-teal-500 to-orange-300 text-white py-24 md:py-15">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-16">
           {/* Left side text */}
           <div className="md:w-1/2 space-y-6 text-center md:text-left">
@@ -249,8 +254,8 @@ const HomePage = () => {
         <div className="container mx-auto grid md:grid-cols-3 gap-8 text-center">
           <div className="bg-teal-50 p-10 rounded-3xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300">
             <div className="text-6xl mb-4">1️⃣</div>
-            <h3 className="font-semibold text-xl mb-2">NGO Registers & Gets Verified</h3>
-            <p>Admin verifies NGO documents ensuring trust and transparency.</p>
+            <h3 className="font-semibold text-xl mb-2">NGO Registers & can get fund</h3>
+            <p>NGOs can register and donor can donate money according to their preference</p>
           </div>
           <div className="bg-orange-50 p-10 rounded-3xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300">
             <div className="text-6xl mb-4">2️⃣</div>
