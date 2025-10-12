@@ -117,4 +117,9 @@ export const addDonationToCampaign = async (campaignId, donation) => {
   return res.data;
 };
 
+export const getCampaignUtilization = async (campaignId) => {
+  const res = await api.get(`/campaigns/${campaignId}`);
+  return res.data;
+};
+
 export default api;

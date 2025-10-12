@@ -251,8 +251,17 @@ export default function CampaignList() {
                       className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 group"
                     >
                       <span>View Details</span>
+
+
                       <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
+                                          <Link
+  to={`/campaigns/${campaign._id}/utilization`}
+  className="flex-1 bg-yellow-500 text-white py-3 px-4 rounded-lg font-semibold hover:bg-yellow-600 transition-all duration-300 flex items-center justify-center space-x-2"
+>
+  <span>View Utilization Report</span>
+  <FaArrowRight className="w-4 h-4" />
+</Link>
                     
                     <button className="bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition flex items-center justify-center">
                       <FaHeart className="w-4 h-4" />

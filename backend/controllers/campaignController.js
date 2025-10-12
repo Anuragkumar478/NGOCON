@@ -145,3 +145,30 @@ export const addCampaignUpdate = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const getCampaignUtilization = async (req, res) => {
+  try {
+    const campaign = await Campaign.findById(req.params.id)
+      .populate("ngo", "name email")
+      .populate("donations.donor", "name email");
+
+    if (!campaign) return res.status(404).json({ message: "Campaign not found" });
+
+    const totalDonations = campaign.donations.reduce((sum, d) => sum + d.amount, 0);
+
+    res.json({
+      campaignId: campaign._id,
+      title: campaign.title,
+      ngo: campaign.ngo,
+      status: campaign.status,
+      progress: campaign.progress,
+      totalDonations,
+      donations: campaign.donations.map(d => ({
+        donor: d.donor.name,
+        amount: d.amount
+      })),
+      updates: campaign.updates
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

@@ -7,6 +7,7 @@ import {
   addDonation,
   updateCampaignStatus,
   addCampaignUpdate,
+   getCampaignUtilization, 
 } from "../controllers/campaignController.js";
 import { protectNGO } from "../middleware/auth.js";
 
@@ -21,6 +22,8 @@ router.post("/:id/updates", protectNGO, addCampaignUpdate);
 router.get("/", getAllCampaigns);
 router.get("/:id", getCampaignDetails);
 
+// ✅ Donor utilization report route (public)
+router.get("/:id/utilization", getCampaignUtilization);
 // Volunteer & Donor actions (can add auth if needed)
 router.post("/:id/register-volunteer", registerVolunteer);
 router.post("/:id/donate", addDonation);

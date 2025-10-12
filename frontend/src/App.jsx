@@ -11,6 +11,7 @@ import CampaignDetails from "./pages/NGO/CampaignDetails";
 import CreateCampaign from "./pages/NGO/CreateCampaign";
 import CampaignList from "./pages/NGO/CampaignList";
 import NGOLogin from "./pages/NGO/NGOLogin";
+import CampaignUtilization from "./pages/Donor/CampaignUtilization";
 
 export default function App() {
   return (
@@ -29,6 +30,8 @@ export default function App() {
          <Route path="/campaigns" element={<CampaignList />} />
   <Route path="/campaigns/create" element={<CreateCampaign />} />
   <Route path="/campaigns/:id" element={<CampaignDetails />} />
+  <Route path="/campaigns/:id/utilization" element={<CampaignUtilization />} />
+
         </Routes>
       </div>
     </Router>
