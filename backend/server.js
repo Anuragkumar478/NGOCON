@@ -9,6 +9,7 @@ import ngoRoutes from "./routes/ngoRoutes.js";
 import donorRoutes from "./routes/donorRoutes.js";
 import volunteerRoutes from "./routes/volunteerRoutes.js";
 import campaignRoutes from "./routes/campaignRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
 dotenv.config();
 connectDB();
 
@@ -29,6 +30,7 @@ app.use("/api/ngos", ngoRoutes);
 app.use("/api/donors", donorRoutes);
 app.use("/api/volunteers", volunteerRoutes);
 app.use("/api/campaigns", campaignRoutes);
+app.use("/api/profile", profileRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/", (req, res) => {
   res.send("NGO Platform Backend is Running");

@@ -5,6 +5,9 @@ import {
   getNGODetails,
   addFeedback,
 } from "../services/api";
+import Hero from "../components/Hero";
+import Stats from "../components/Stats";
+
 
 const Home = () => {
   const [ngos, setNgos] = useState([]);
@@ -26,6 +29,7 @@ const Home = () => {
 
   const fetchAllNgos = async () => {
     const data = await getAllNGOs();
+   
     setNgos(data);
     setCategories(["All", ...new Set(data.map((n) => n.category))]);
   };
@@ -61,50 +65,9 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-pink-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-gray-800 to-pink-300 text-white py-24">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <h1 className="text-5xl font-bold mb-6 leading-tight">
-            Connecting Hearts, 
-            <span className="block text-yellow-300">Creating Impact</span>
-          </h1>
-          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-95">
-            Join hands with verified NGOs to make a difference. Donate, volunteer, and be the change you wish to see in the world.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-white text-gray-800 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
-              Donate Now
-            </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-gray-800 transition-all duration-300">
-              Volunteer Today
-            </button>
-          </div>
-        </div>
-      </section>
-
+      <Hero />
       {/* Stats Section */}
-      <section className="bg-white py-16">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div className="p-6 transform hover:scale-105 transition duration-300">
-              <div className="text-4xl font-bold text-pink-500 mb-3">150+</div>
-              <div className="text-gray-600 font-medium">Verified NGOs</div>
-            </div>
-            <div className="p-6 transform hover:scale-105 transition duration-300">
-              <div className="text-4xl font-bold text-purple-500 mb-3">₹2.5M+</div>
-              <div className="text-gray-600 font-medium">Funds Raised</div>
-            </div>
-            <div className="p-6 transform hover:scale-105 transition duration-300">
-              <div className="text-4xl font-bold text-blue-500 mb-3">5,000+</div>
-              <div className="text-gray-600 font-medium">Volunteers</div>
-            </div>
-            <div className="p-6 transform hover:scale-105 transition duration-300">
-              <div className="text-4xl font-bold text-orange-500 mb-3">50+</div>
-              <div className="text-gray-600 font-medium">Cities</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Stats />
 
       {/* NGO Categories Section */}
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
@@ -419,84 +382,17 @@ const Home = () => {
                     Submit Feedback
                   </button>
                 </div>
+               
               </div>
             </div>
+             
           </div>
+         
         </div>
       )}
-
-      {/* Footer */}
-      <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-16">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <span className="text-2xl font-bold">ImpactBridge</span>
-              </div>
-              <p className="text-gray-400 leading-relaxed">
-                Connecting NGOs with donors and volunteers to create meaningful social impact and drive positive change in communities worldwide.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-lg mb-6">Quick Links</h4>
-              <ul className="space-y-3 text-gray-400">
-                <li><a href="#" className="hover:text-white transition duration-300">Home</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">All NGOs</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Campaigns</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-lg mb-6">Support</h4>
-              <ul className="space-y-3 text-gray-400">
-                <li><a href="#" className="hover:text-white transition duration-300">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">FAQ</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Community Guidelines</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-lg mb-6">Contact Info</h4>
-              <ul className="space-y-3 text-gray-400">
-                <li className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-pink-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                  <span>contact@impactbridge.org</span>
-                </li>
-                <li className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                  </svg>
-                  <span>+1 (555) 123-4567</span>
-                </li>
-                <li className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                  <span>123 Social Street, City</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 ImpactBridge. All rights reserved. Making the world a better place, one connection at a time.</p>
-          </div>
-        </div>
-      </footer>
+ 
     </div>
+   
   );
 };
 

@@ -6,6 +6,7 @@ import Donor from "../models/Donor.js";
 export const createCampaign = async (req, res) => {
   try {
     const { title, description, location } = req.body;
+    console.log("Creating campaign with data:", req.body);
     const ngoId = req.ngo._id;
 
     const campaign = new Campaign({ title, description, ngo: ngoId, location });

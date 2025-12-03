@@ -9,13 +9,21 @@ const api = axios.create({
 
 // 🔹 Automatically handle FormData uploads
 api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("ngoToken");
+
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+
   if (config.data instanceof FormData) {
     config.headers["Content-Type"] = "multipart/form-data";
   } else {
     config.headers["Content-Type"] = "application/json";
   }
+
   return config;
 });
+
 
 /* ===================== NGO APIs ===================== */
 export const registerNGO = async (ngoData) => {
@@ -45,7 +53,9 @@ export const addFeedback = async (id, feedback) => {
 
 export const loginNGO = async (ngoData) => {
   // Cookie-based login
+  
   const res = await api.post("/ngos/login", ngoData);
+  localStorage.setItem("ngoToken", res.data.token);
   return res.data; // cookie is automatically stored by browser
 };
 
@@ -89,9 +99,7 @@ export const getAllVolunteers = async () => {
 /* ===================== Campaign APIs ===================== */
 
 export const createCampaign = async (data) => {
-  const res = await api.post("/campaigns", data, {
-    withCredentials: true, // <-- important for sending cookies
-  });
+  const res = await api.post("/campaigns/create", data);
   return res.data;
 };
 
@@ -108,7 +116,7 @@ export const getCampaignDetails = async (id) => {
 };
 
 export const registerVolunteerToCampaign = async (campaignId, volunteerId) => {
-  const res = await api.post(`/campaigns/${campaignId}/volunteer`, { volunteerId });
+  const res = await api.post(`/campaigns/${campaignId}/register-volunteer`, { volunteerId });
   return res.data;
 };
 
@@ -118,8 +126,20 @@ export const addDonationToCampaign = async (campaignId, donation) => {
 };
 
 export const getCampaignUtilization = async (campaignId) => {
-  const res = await api.get(`/campaigns/${campaignId}`);
+  const res = await api.get(`/campaigns/${campaignId}utilization`);
   return res.data;
 };
+export const loginProfile = async (profileData) => {
+  const res = await api.post("/profile/login", profileData);
+  return res.data; // cookie is automatically stored by browser
+}
+export const getProfile = async () => {
+  const res = await api.get("/profile/getProfile");
+  return res.data;
+}
+export const updateProfile = async (profileData) => {
+  const res = await api.put("/profile/updateProfile", profileData);
+  return res.data;
+}
 
 export default api;

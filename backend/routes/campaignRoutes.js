@@ -14,7 +14,7 @@ import { protectNGO } from "../middleware/auth.js";
 const router = express.Router();
 
 // NGO routes (require authentication)
-router.post("/", protectNGO, createCampaign);
+router.post("/create", protectNGO, createCampaign);
 router.patch("/:id/status", protectNGO, updateCampaignStatus);
 router.post("/:id/updates", protectNGO, addCampaignUpdate);
 

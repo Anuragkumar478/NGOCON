@@ -18,6 +18,7 @@ router.post(
     { name: "profileImage", maxCount: 1 },
     { name: "govtDocument", maxCount: 1 },
   ]),
+  
   registerNGO
 );
 

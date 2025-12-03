@@ -124,14 +124,16 @@ export const loginNGO = async (req, res) => {
     });
 
     // Set token as HTTP-only cookie
-    res.cookie("ngoToken", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // only https in prod
-      sameSite: "Strict",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    });
+    // res.cookie("ngoToken", token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production", // only https in prod
+    //   sameSite: "Strict",
+    //   maxAge: 24 * 60 * 60 * 1000, // 1 day
+    // });
 
-    res.status(200).json({ message: "Login successful", ngo });
+    res.status(200).json({ message: "Login successful", ngo,
+      token,
+     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
