@@ -3,7 +3,7 @@ import React from 'react'
 const Stats = () => {
   return (
     <div>
-         <section className="bg-white py-16">
+         <section className="bg-gray-900 py-16">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div className="p-6 transform hover:scale-105 transition duration-300">

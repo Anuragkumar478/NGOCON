@@ -23,13 +23,9 @@ export const registerNGO = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Get file paths from multer
-    const profileImage = req.files["profileImage"]
-      ? req.files["profileImage"][0].path
-      : undefined;
+   const profileImage = req.files?.profileImage?.[0]?.path || req.files?.profileImage?.[0]?.filename || "";
+const govtDocument = req.files?.govtDocument?.[0]?.path || req.files?.govtDocument?.[0]?.filename || "";
 
-    const govtDocument = req.files["govtDocument"]
-      ? req.files["govtDocument"][0].path
-      : undefined;
 
     const ngo = new NGO({
       name,

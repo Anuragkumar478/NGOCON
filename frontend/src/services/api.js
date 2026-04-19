@@ -9,17 +9,13 @@ const api = axios.create({
 
 // 🔹 Automatically handle FormData uploads
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("ngoToken");
+  const token = localStorage.getItem("token");
 
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
 
-  if (config.data instanceof FormData) {
-    config.headers["Content-Type"] = "multipart/form-data";
-  } else {
-    config.headers["Content-Type"] = "application/json";
-  }
+ 
 
   return config;
 });
@@ -33,6 +29,7 @@ export const registerNGO = async (ngoData) => {
 
 export const getAllNGOs = async () => {
   const res = await api.get("/ngos");
+  
   return res.data;
 };
 
@@ -115,8 +112,8 @@ export const getCampaignDetails = async (id) => {
   return res.data;
 };
 
-export const registerVolunteerToCampaign = async (campaignId, volunteerId) => {
-  const res = await api.post(`/campaigns/${campaignId}/register-volunteer`, { volunteerId });
+export const registerVolunteerToCampaign = async (campaignId) => {
+  const res = await api.post(`/campaigns/${campaignId}/register-volunteer`);
   return res.data;
 };
 
@@ -126,7 +123,7 @@ export const addDonationToCampaign = async (campaignId, donation) => {
 };
 
 export const getCampaignUtilization = async (campaignId) => {
-  const res = await api.get(`/campaigns/${campaignId}utilization`);
+  const res = await api.get(`/campaigns/${campaignId}/utilization`);
   return res.data;
 };
 export const loginProfile = async (profileData) => {

@@ -123,7 +123,7 @@ export default function CampaignUtilization() {
 
         {/* Campaign Header */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
-          <div className="relative h-64 bg-gradient-to-r from-blue-500 to-purple-600">
+          <div className="relative h-64 bg-gray-500 hover:bg-sky-700 transition-colors duration-300">
             {campaign.image ? (
               <img
                 src={campaign.image}

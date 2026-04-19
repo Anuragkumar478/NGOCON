@@ -1,9 +1,20 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
+ import Payment from './Payment'
 const Hero = () => {
+  const ngo = {
+  _id: "demo123",
+  name: "Helping Hands NGO",
+};
+
+const user = {
+  _id: "user123",
+  name: "Anurag Kumar",
+  email: "anurag@email.com",
+};
   return (
-    <div>
-     <section className="relative bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white pt-24 pb-25 ">
+    <div className='min-h-screen'>
+     <section className="relative  min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white pt-24 pb-25 ">
   <div className="absolute inset-0 bg-black/30"></div>
 
   <div className="relative z-10 container mx-auto px-6 text-center">
@@ -19,13 +30,15 @@ const Hero = () => {
     </p>
 
     <div className="flex justify-center gap-4">
-      <button className="bg-pink-500 px-8 py-3 text-lg rounded-full font-semibold hover:bg-pink-600 transition shadow-lg">
-        Donate Now
-      </button>
-
-      <button className="border border-white px-8 py-3 text-lg rounded-full font-semibold hover:bg-white hover:text-gray-800 transition">
-        Become a Volunteer
-      </button>
+      
+      
+     <Link to="/volunteer/register">
+       <button className="border border-white px-8 py-3 text-lg rounded-full font-semibold hover:bg-white hover:text-gray-800 transition">
+      
+         Become a Volunteer
+       </button>
+     </Link>
+     
     </div>
 
   </div>

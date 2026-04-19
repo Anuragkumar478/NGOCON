@@ -9,13 +9,8 @@ import {
 export default function CampaignDetails() {
   const { id } = useParams();
   const [campaign, setCampaign] = useState(null);
-
   // Volunteer
-  const [volunteerId, setVolunteerId] = useState("");
-
-  // Donation
-  const [donorName, setDonorName] = useState("");
-  const [donorEmail, setDonorEmail] = useState("");
+ 
   const [donationAmount, setDonationAmount] = useState("");
 
   useEffect(() => {
@@ -29,9 +24,9 @@ export default function CampaignDetails() {
   // Volunteer registration handler
   const handleRegisterVolunteer = async () => {
     try {
-      await registerVolunteerToCampaign(id, volunteerId);
+      await registerVolunteerToCampaign(id);
       alert("Registered as volunteer successfully!");
-      setVolunteerId(""); // Clear input
+     // Clear input
     } catch (err) {
       alert(err.response?.data?.message || "Registration failed");
     }
@@ -39,30 +34,34 @@ export default function CampaignDetails() {
 
   // Donation handler
   const handleDonate = async () => {
-    if (!donorName || !donorEmail || !donationAmount) {
-      alert("Please fill all donation details");
-      return;
-    }
+  if (!donationAmount) {
+    alert("Enter donation amount");
+    return;
+  }
 
-    try {
-      await addDonationToCampaign(id, {
-        name: donorName,
-        email: donorEmail,
-        amount: Number(donationAmount),
-      });
-      alert("Donation successful!");
-      setDonorName("");
-      setDonorEmail("");
-      setDonationAmount("");
-    } catch (err) {
-      alert(err.response?.data?.message || "Donation failed");
-    }
-  };
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Please login as donor");
+    return;
+  }
+
+  try {
+    await addDonationToCampaign(id, {
+      amount: Number(donationAmount),
+    });
+
+    alert("Donation successful!");
+    setDonationAmount("");
+  } catch (err) {
+    alert(err.response?.data?.message || "Donation failed");
+  }
+};
 
   if (!campaign) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded shadow mt-8">
+    <div className="max-w-2xl mx-auto p-6 bg-white shadow mt-8">
       <h2 className="text-2xl font-bold mb-2">{campaign.title}</h2>
       <p className="text-gray-700 mb-4">{campaign.description}</p>
       <p className="mb-4">Status: {campaign.status}</p>
@@ -70,13 +69,7 @@ export default function CampaignDetails() {
       {/* Volunteer Registration */}
       <div className="mb-6">
         <h3 className="font-semibold mb-2">Register as Volunteer</h3>
-        <input
-          type="text"
-          placeholder="Volunteer ID"
-          value={volunteerId}
-          onChange={(e) => setVolunteerId(e.target.value)}
-          className="border p-2 rounded mr-2"
-        />
+      
         <button
           onClick={handleRegisterVolunteer}
           className="bg-green-600 text-white py-1 px-4 rounded hover:bg-green-700"
@@ -89,26 +82,12 @@ export default function CampaignDetails() {
       <div>
         <h3 className="font-semibold mb-2">Donate to Campaign</h3>
         <input
-          type="text"
-          placeholder="Your Name"
-          value={donorName}
-          onChange={(e) => setDonorName(e.target.value)}
-          className="border p-2 rounded mb-2 w-full"
-        />
-        <input
-          type="email"
-          placeholder="Your Email"
-          value={donorEmail}
-          onChange={(e) => setDonorEmail(e.target.value)}
-          className="border p-2 rounded mb-2 w-full"
-        />
-        <input
-          type="number"
-          placeholder="Donation Amount"
-          value={donationAmount}
-          onChange={(e) => setDonationAmount(e.target.value)}
-          className="border p-2 rounded mb-2 w-full"
-        />
+  type="number"
+  placeholder="Donation Amount"
+  value={donationAmount}
+  onChange={(e) => setDonationAmount(e.target.value)}
+  className="border p-2 rounded mb-2 w-full"
+/>
         <button
           onClick={handleDonate}
           className="bg-blue-600 text-white py-1 px-4 rounded hover:bg-blue-700"

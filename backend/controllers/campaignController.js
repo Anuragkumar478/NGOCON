@@ -6,8 +6,8 @@ import Donor from "../models/Donor.js";
 export const createCampaign = async (req, res) => {
   try {
     const { title, description, location } = req.body;
-    console.log("Creating campaign with data:", req.body);
-    const ngoId = req.ngo._id;
+   
+    const ngoId = req.ngo._id || req.ngo.id; // from auth middleware
 
     const campaign = new Campaign({ title, description, ngo: ngoId, location });
     await campaign.save();
@@ -56,54 +56,77 @@ export const getCampaignDetails = async (req, res) => {
 // Volunteer registers for a campaign
 export const registerVolunteer = async (req, res) => {
   try {
-    const { volunteerId } = req.body;
     const campaign = await Campaign.findById(req.params.id);
-    if (!campaign) return res.status(404).json({ message: "Campaign not found" });
+
+    if (!campaign) {
+      return res.status(404).json({ message: "Campaign not found" });
+    }
+    // ✅ Get volunteer from auth middleware
+  
+    if (!req.user || req.user.role !== "volunteer") {
+      return res.status(403).json({ message: "Only volunteers can register" });
+    }
+    const volunteerId = req.user.id;
 
     const volunteer = await Volunteer.findById(volunteerId);
-    if (!volunteer) return res.status(404).json({ message: "Volunteer not found" });
 
-    if (campaign.volunteers.includes(volunteerId))
-      return res.status(400).json({ message: "Volunteer already registered" });
+    // 🚫 Already registered check
+    if (campaign.volunteers.includes(volunteerId)) {
+      return res.status(400).json({
+        message: "Already registered",
+      });
+    }
 
+    // ✅ Register
     campaign.volunteers.push(volunteerId);
     await campaign.save();
 
     volunteer.registeredActivities.push(campaign._id);
     await volunteer.save();
 
-    res.status(200).json({ message: "Volunteer registered successfully", campaign });
+    res.status(200).json({
+      message: "Registered successfully",
+      campaign,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
 // Donor contributes to a campaign
-export const addDonation = async (req, res) => {
+ export const addDonation = async (req, res) => {
   try {
-    const { donorId, amount } = req.body;
-    if (amount <= 0) return res.status(400).json({ message: "Donation must be greater than 0" });
+    const { amount } = req.body;
+
+    if (amount <= 0) {
+      return res.status(400).json({ message: "Invalid amount" });
+    }
+         
+    if (!req.user || req.user.role !== "donor") {
+      
+      return res.status(403).json({ message: "Only donors can donate" });
+    }
+
+    const donorId = req.user.id;
 
     const campaign = await Campaign.findById(req.params.id);
     if (!campaign) return res.status(404).json({ message: "Campaign not found" });
 
     const donor = await Donor.findById(donorId);
+   
     if (!donor) return res.status(404).json({ message: "Donor not found" });
 
     campaign.donations.push({ donor: donorId, amount });
     await campaign.save();
 
-    if (!donor.donations.includes(campaign._id)) {
-      donor.donations.push(campaign._id);
-      await donor.save();
-    }
+    donor.donations.push(campaign._id);
+    await donor.save();
 
-    res.status(200).json({ message: "Donation added successfully", campaign });
+    res.status(200).json({ message: "Donation successful", campaign });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 // NGO updates campaign status/progress
 export const updateCampaignStatus = async (req, res) => {
   try {

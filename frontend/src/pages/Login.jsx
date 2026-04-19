@@ -22,7 +22,9 @@ export default function Login() {
       localStorage.setItem("user", JSON.stringify(res.user));
       localStorage.setItem("role", res.user.role);
       localStorage.setItem("token", res.token);
-
+      
+      
+      
       navigate("/"); // redirect home
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");

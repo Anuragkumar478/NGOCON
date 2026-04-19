@@ -1,3 +1,4 @@
+import default_image from "../assets/default.png"
 import React, { useEffect, useState } from "react";
 import {
   getAllNGOs,
@@ -7,6 +8,7 @@ import {
 } from "../services/api";
 import Hero from "../components/Hero";
 import Stats from "../components/Stats";
+import Payment from "../components/Payment";
 
 
 const Home = () => {
@@ -63,14 +65,14 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-brown-50 to-green-500-50">
       {/* Hero Section */}
       <Hero />
       {/* Stats Section */}
       <Stats />
 
       {/* NGO Categories Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+       <section className="py-20  min-h-screen bg-gradient-to-b bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">Browse by Category</h2>
@@ -101,18 +103,19 @@ const Home = () => {
             {ngos.map((ngo) => (
               <div
                 key={ngo._id}
-                className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 overflow-hidden group border border-gray-100"
+               
+                className="bg-gray-800 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 overflow-hidden group border border-gray-100"
               >
+              
                 <div className="relative overflow-hidden">
                   <img
-                    src={
-                      ngo.profileImage
-                        ? `http://localhost:5000/${ngo.profileImage}`
-                        : "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                    }
-                    alt={ngo.name}
-                    className="w-full h-52 object-cover group-hover:scale-110 transition duration-700"
-                  />
+  src={ngo?.profileImage || default_image}
+  alt="NGO"
+  onError={(e) => {
+    e.target.onerror = null; // prevents infinite loop
+    e.target.src = default_image;
+  }}
+/>
                   <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
                     <span className="text-sm font-semibold text-pink-600">{ngo.category}</span>
                   </div>
@@ -127,24 +130,22 @@ const Home = () => {
 
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-bold text-gray-800 line-clamp-2 leading-tight">{ngo.name}</h3>
-                  </div>
-                  
-                  <p className="text-gray-600 text-sm mb-5 line-clamp-3 leading-relaxed">{ngo.description}</p>
-                  
+                    <h3 className="text-xl font-bold text-pink-800 line-clamp-2 leading-tight">{ngo.name}</h3>
+                  </div>                  
+                  <p className="text-white text-sm mb-5 line-clamp-3 leading-relaxed">{ngo.description}</p>
                   <div className="space-y-3 mb-5">
                     <div className="flex items-center text-sm text-gray-500">
                       <svg className="w-4 h-4 mr-3 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                       </svg>
-                      <span>{ngo.address || "Multiple Locations"}</span>
+                      <span className="text-yellow-300">{ngo.address || "Multiple Locations"}  </span>
                     </div>
                     <div className="flex items-center text-sm text-gray-500">
                       <svg className="w-4 h-4 mr-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                         <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
                       </svg>
-                      <span className="truncate">{ngo.website || "Website coming soon"}</span>
+                      <span className="truncate text-pink-500">{ngo.website || "Website coming soon"}</span>
                     </div>
                   </div>
 
@@ -199,11 +200,11 @@ const Home = () => {
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
             <div className="relative">
               <img
-                src={
-                  selectedNgo.profileImage
-                    ? `http://localhost:5000/${selectedNgo.profileImage}`
-                    : "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                }
+                src=
+                 
+                 {selectedNgo?.profileImage || "https://via.placeholder.com/200"}
+                  
+                
                 alt={selectedNgo.name}
                 className="w-full h-72 object-cover rounded-t-2xl"
               />
@@ -284,6 +285,7 @@ const Home = () => {
                   onClick={() => handleDonate(selectedNgo._id)}
                   className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-10 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
                 >
+                
                   Donate Now
                 </button>
               </div>

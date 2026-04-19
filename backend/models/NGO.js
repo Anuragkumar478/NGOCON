@@ -33,13 +33,13 @@ const ngoSchema = new mongoose.Schema(
       default: "Other",
     },
 
-    profileImage: { type: String, default: "https://via.placeholder.com/150" },
+    
     website: { type: String },
     address: { type: String },
     localContactNumber: { type: String },
+    profileImage: { type: String, default: "https://via.placeholder.com/150" },
     govtDocument: { type: String },
     verifiedByAuthority: { type: Boolean, default: false },
-
     campaigns: [{ type: mongoose.Schema.Types.ObjectId, ref: "Campaign" }],
     feedbacks: [feedbackSchema], // 💬 Feedback array
   },

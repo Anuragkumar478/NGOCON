@@ -8,8 +8,8 @@ import {
   loginNGO
 } from "../controllers/ngoController.js";
 import { upload } from "../middleware/uploads.js";
-import { protectNGO } from "../middleware/auth.js";
 
+import { authMiddleware } from "../middleware/authProfile.js";
 const router = express.Router();
 
 router.post(
@@ -29,7 +29,7 @@ router.get("/category/:category", getNGOsByCategory);
 router.get("/:id", getNGODetails);
 
 // ✅ Protect feedback route
-router.post("/:id/feedback", protectNGO, addFeedback);
+router.post("/:id/feedback", authMiddleware, addFeedback);
 
 router.get("/", getAllNGOs);
 

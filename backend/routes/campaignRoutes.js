@@ -9,14 +9,15 @@ import {
   addCampaignUpdate,
    getCampaignUtilization, 
 } from "../controllers/campaignController.js";
-import { protectNGO } from "../middleware/auth.js";
+
+import { authMiddleware } from "../middleware/authProfile.js";
 
 const router = express.Router();
 
 // NGO routes (require authentication)
-router.post("/create", protectNGO, createCampaign);
-router.patch("/:id/status", protectNGO, updateCampaignStatus);
-router.post("/:id/updates", protectNGO, addCampaignUpdate);
+router.post("/create", authMiddleware, createCampaign);
+router.patch("/:id/status", authMiddleware, updateCampaignStatus);
+router.post("/:id/updates", authMiddleware, addCampaignUpdate);
 
 // Public routes
 router.get("/", getAllCampaigns);
@@ -25,7 +26,7 @@ router.get("/:id", getCampaignDetails);
 // ✅ Donor utilization report route (public)
 router.get("/:id/utilization", getCampaignUtilization);
 // Volunteer & Donor actions (can add auth if needed)
-router.post("/:id/register-volunteer", registerVolunteer);
-router.post("/:id/donate", addDonation);
+router.post("/:id/register-volunteer", authMiddleware, registerVolunteer);
+router.post("/:id/donate", authMiddleware, addDonation);
 
 export default router;

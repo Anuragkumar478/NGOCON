@@ -22,7 +22,7 @@ const RegisterVolunteer = () => {
       setLoading(true);
       const response = await registerVolunteer(formData);
       alert("Volunteer registered successfully!");
-      navigate("/volunteer/login");
+      navigate("/login");
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || "Registration failed");
