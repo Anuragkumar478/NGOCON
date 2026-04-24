@@ -75,7 +75,7 @@ This platform bridges NGOs, donors, and volunteers by providing transparency, ve
 ## 🧑‍💻 Installation
 
 ```bash
-git clone https://github.com/your-username/ngo-connect-platform.git
+git clone https://github.com/Anuragkumar478/NGOCON
 cd ngo-connect-platform
 npm install
 npm run server
