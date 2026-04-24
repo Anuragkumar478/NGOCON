@@ -19,10 +19,23 @@ connectDB();
 
 const app = express();
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL, // replace with your frontend URL
-  credentials: true,               // important to allow cookies
-}));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://ngocon.vercel.app"
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
