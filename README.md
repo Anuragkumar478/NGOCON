@@ -1,14 +1,82 @@
-1. Problem Statement 
-Many NGOs face challenges in connec ng with poten al donors and volunteers due to 
-limited visibility and lack of trust. Donors o en hesitate to contribute because they cannot 
-verify how their funds are used, and volunteers struggle to find nearby opportuni es to 
-contribute. There is a need for a transparent and collabora ve digital pla orm that bridges 
-NGOs, donors, and volunteers to ensure accountability and effec ve resource u liza on in 
-social impact ac vi es. 
- Expected Output 
-1. A web-based pla orm where: 
-2. NGOs can post verified dona on or volunteer campaigns. 
-3. Donors can contribute and view u liza on reports or updates. 
-4. Volunteers can discover and register for local ac vi es. 
-5. The system ensures transparency through progress tracking and data visualiza on of 
-social impact. 
+# 🌍 NGO Connect Platform
+
+A transparent and collaborative web-based platform that connects NGOs, donors, and volunteers to improve trust, visibility, and social impact.
+
+---
+
+## 📌 Problem Statement
+
+Many NGOs struggle to connect with potential donors and volunteers due to limited visibility and lack of trust. Donors often hesitate to contribute because they cannot verify how their funds are used, and volunteers struggle to find nearby opportunities.
+
+---
+
+## 🎯 Solution
+
+This platform bridges NGOs, donors, and volunteers by providing transparency, verified campaigns, and real-time impact tracking.
+
+---
+
+## 🚀 Features
+
+### 🏢 For NGOs
+- Create and manage donation campaigns  
+- Post volunteer opportunities  
+- Upload fund utilization reports  
+- Share updates with images/videos  
+
+### 💰 For Donors
+- Browse verified campaigns  
+- Donate securely  
+- Track fund usage  
+- View impact reports  
+
+### 🙋 For Volunteers
+- Find nearby opportunities  
+- Register for activities  
+- Track participation  
+
+### 📊 Transparency
+- Real-time progress tracking  
+- Data visualization (charts/graphs)  
+- Campaign reports and logs  
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:** React.js, Tailwind CSS  
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB  
+
+**Other:** JWT, Redis, Kafka, Docker  
+
+---
+
+## 🔐 Security
+
+- JWT Authentication  
+- Role-based access control  
+- Secure APIs  
+- Data validation  
+
+---
+
+## 📈 Workflow
+
+1. NGO registers and gets verified  
+2. NGO posts campaign  
+3. Donors donate  
+4. Volunteers join  
+5. NGO uploads updates  
+6. Platform shows impact  
+
+---
+
+## 🧑‍💻 Installation
+
+```bash
+git clone https://github.com/your-username/ngo-connect-platform.git
+cd ngo-connect-platform
+npm install
+npm run server
+npm start
